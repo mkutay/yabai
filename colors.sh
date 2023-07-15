@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-source ~/.config/yabai/catppuccin-latte.sh
+source ~/.config/yabai/catppuccin-mocha.sh

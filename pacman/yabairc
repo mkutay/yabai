@@ -8,11 +8,11 @@ sudo yabai --load-sa
 
 yabai -m config layout bsp
 # yabai -m config layout float
-yabai -m config top_padding 80
-yabai -m config bottom_padding 15
-yabai -m config left_padding 15
-yabai -m config right_padding 15
-yabai -m config window_gap 15
+yabai -m config top_padding 30
+yabai -m config bottom_padding 10
+yabai -m config left_padding 10
+yabai -m config right_padding 10
+yabai -m config window_gap 10
 
 yabai -m config window_shadow off
 
@@ -24,9 +24,9 @@ yabai -m config active_window_opacity 1.0
 yabai -m config window_opacity_duration 0.0
 yabai -m config normal_window_opacity 0.90
 
-yabai -m config window_animation_duration 0.0
+yabai -m config window_border_blur off
 
-yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m config window_animation_duration 0.0
 
 yabai -m config window_border on
 yabai -m config window_border_width 2
@@ -48,3 +48,5 @@ yabai -m config mouse_action2 resize
 # S K E T C H Y B A R  E V E N T S
 yabai -m signal --add event=window_focused action="sketchybar -m --trigger window_focus &> /dev/null"
 yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger title_change &> /dev/null"
+
+borders active_color="$yabai_active_border_color" inactive_color="$yabai_normal_border_color" width=5.0 2>/dev/null 1>&2 &

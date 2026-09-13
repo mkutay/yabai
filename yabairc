@@ -37,8 +37,21 @@ yabai -m config mouse_action1 move
 # set modifier + right-click drag to resize window
 yabai -m config mouse_action2 resize
 
+# keep the pointer and keyboard focus aligned
+yabai -m config mouse_follows_focus on
+
 # sketchybar integration: trigger updates on window focus and title change
 yabai -m signal --add event=window_focused action="sketchybar -m --trigger window_focus &> /dev/null"
 yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger title_change &> /dev/null"
 
-yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add label=system-utilities app="^(Calculator|System Information|System Settings|Music)$" manage=off
+yabai -m rule --add label=file-dialogs title="^(Open|Save|Save As|Choose|Select)( |$)" manage=off
+yabai -m rule --add label=picture-in-picture app="^Picture-in-Picture$" manage=off sticky=on topmost=on
+
+# rules only affect newly discovered windows, so update matching windows on reload
+yabai -m query --windows | jq -r '.[] | select((.app | test("^(Calculator|System Information|System Settings|Music)$")) and (."is-floating" | not)) | .id' | while read -r id; do
+    yabai -m window "$id" --toggle float
+done
+yabai -m query --windows | jq -r '.[] | select((.title | test("^(Open|Save|Save As|Choose|Select)( |$)")) and (."is-floating" | not)) | .id' | while read -r id; do
+    yabai -m window "$id" --toggle float
+done
